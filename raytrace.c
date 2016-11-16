@@ -781,7 +781,7 @@ double* shade(double* Ro, double* Rd, Object** scene, int current, double best_t
 
         v3_subtract(Ron, scene[i]->light.position, Vobject);
         //printf("v3 subtract done...\n");
-        v3_scale(Vobject, -1, Vobject);
+        //v3_scale(Vobject, -1, Vobject);
         //printf("v3 scale done...\n");
         normalize(Vobject);
         double* N = malloc(sizeof(double)*3);
@@ -794,7 +794,7 @@ double* shade(double* Ro, double* Rd, Object** scene, int current, double best_t
             N[0] = scene[current]->plane.normal[0];
             N[1] = scene[current]->plane.normal[1];
             N[2] = scene[current]->plane.normal[2];
-            //v3_scale(N, -1, N);  // plane
+            v3_scale(N, -1, N);  // plane
             normalize(N);
         }else if(scene[current]->kind == 1){
             printf("THIS IS A SPHERE \n");
@@ -807,9 +807,13 @@ double* shade(double* Ro, double* Rd, Object** scene, int current, double best_t
         v3_scale(Rdn, -1, L); // light_position - Ron;
         normalize(L);
 
+        /*
         v3_scale(N, 2, R);
         v3_scale(N, v3_dot(R, L), R);
         v3_subtract(R, L, R);//reflection of L
+        */
+
+        reflect_vector(scene[current], L, R, Ron);
 
         V[0] = Rd[0];
         V[1] = Rd[1];
