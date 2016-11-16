@@ -696,7 +696,7 @@ void vector_print(double* vector){
    }
 }
 double* shade(double* Ro, double* Rd, Object** scene, int current, double best_t, int recursion_level){
-    printf("SHADING LEVEL %i: \n", recursion_level);
+    //printf("SHADING LEVEL %i: \n", recursion_level);
     double* color = malloc(sizeof(double)*3);
       color[0] = 0;
       color[1] = 0;
@@ -788,16 +788,16 @@ double* shade(double* Ro, double* Rd, Object** scene, int current, double best_t
         double* L = malloc(sizeof(double)*3);
         double* R = malloc(sizeof(double)*3);
         double* V = malloc(sizeof(double)*3);
-        printf("%i \n", scene[current]->kind);
+        //printf("%i \n", scene[current]->kind);
         if(scene[current]->kind == 0){
-            printf("THIS IS A PLANE \n");
+            //printf("THIS IS A PLANE \n");
             N[0] = scene[current]->plane.normal[0];
             N[1] = scene[current]->plane.normal[1];
             N[2] = scene[current]->plane.normal[2];
             v3_scale(N, -1, N);  // plane
             normalize(N);
         }else if(scene[current]->kind == 1){
-            printf("THIS IS A SPHERE \n");
+            //printf("THIS IS A SPHERE \n");
             v3_subtract(Ron, scene[current]->sphere.position, N); // sphere
             normalize(N);
         }else{
@@ -847,7 +847,7 @@ double* shade(double* Ro, double* Rd, Object** scene, int current, double best_t
       }
       //double* reflected_color = shade()
 
- vector_print(color);
+ //vector_print(color);
  return color;
 
 }
@@ -962,7 +962,7 @@ Pixel** raytrace(Object** scene){
         continue;
       }else{ //calculate color of the pixel...
          double* color = malloc(sizeof(double)*3);
-         printf("gonna shade the pixel...\n");
+         //printf("gonna shade the pixel...\n");
          color = shade(Ro, Rd, scene, closest_object_index, best_t, 0);
          buffer[M-y-1][x].r = clamp(color[0])*255;
          buffer[M-y-1][x].g = clamp(color[1])*255;
